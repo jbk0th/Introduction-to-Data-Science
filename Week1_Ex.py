@@ -80,21 +80,57 @@ with open('mpg.csv') as csvfile:
 	mpg = list(csv.DictReader(csvfile))
 #Each row becomes a dictionary, and if fieldnames is omitted the first row becomes the keys for all the subsequent entires in each dictionary, IMPT each row becomes a dictionary
 
-print(mpg[:3])
+mpg[:3]
 
 mpg[0].keys()
 #keys() gives us the column names of our csv
 
 #find the average cty fuel economy across all carss. All values in the dictionaries are strings so we need to convert to float
-sum(float(d['cty']) for d in mpg) / len(mpg)) # uses d as an iterable variable across all dictionaries in the list, then it index that key and sums it for each cty mileage thats been pull from the mpg
+#uses d as an iterable variable across all dictionaries in the list, then it index that key and sums it for each cty mileage thats been pull from the mpg
+
+sum(float(d['cty']) for d in mpg)/len(mpg)
+
+sum(float(d['hwy']) for d in mpg) / len(mpg)
+
+##set returns the unique values for a particular set
 
 
 
+cylinders = set(d['cyl'] for d in mpg)
+cylinders
+
+#grouping the cars by number of cyliner and finding the average cty mpg for each grouping
 
 
+CtyMpgByCyl = []
 
+for c in cylinders: #iterate over all cylinder levels
+	summpg = 0
+	cyltypecount = 0
+	for d in mpg: #iterate over all dictionaries in mpg
+		if d['cyl'] == c: # if the cylinder level type matches, the current type being iterated over in the outer for loop
+			summpg += float(d['cty']) # add the cty mpg
+			cyltypecount += 1 #increment the count for the total number of cylinders in that count 'i.e 4'
+	CtyMpgByCyl.append((c, summpg / cyltypecount)) # append the list with the tuple ('cylinder', and avg mpg)
+CtyMpgByCyl.sort(key=lambda x:x[0])
+CtyMpgByCyl
 
+vehicleclass = set(d['class'] for d in mpg) #what are the unique class 'types'
+print(vehicleclass)
 
+HwyMpgByClass = []
+
+for t in vehicleclass: #iterate over all the vehicle class (think of the returned set as dictionary keys)
+	summpg = 0
+	vclasscount = 0
+	for d in mpg: #iterate over all dictionaries
+		if d['class'] == t: # if the cylinder amount type matches
+			summpg += float(d['hwy'])
+			vclasscount += 1 #increment the count for number counts / this vehicleclass
+	HwyMpgByClass.append((t, summpg / vclasscount)) # append the tuple to the list
+	
+HwyMpgByClass.sort(key = lambda x: x[1])
+print(HwyMpgByClass)
 
 
 
