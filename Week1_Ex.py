@@ -130,7 +130,22 @@ for t in vehicleclass: #iterate over all the vehicle class (think of the returne
 	HwyMpgByClass.append((t, summpg / vclasscount)) # append the tuple to the list
 	
 HwyMpgByClass.sort(key = lambda x: x[1])
-print(HwyMpgByClass)
+HwyMpgByClass
+
+#### Dates and Times
+
+class Person:
+	department = 'School of Information' # class variable
+	
+	def set_name(self,new_name): #a method
+		self.name = new_name
+	def set_location(self, new_location):
+		self.location = new_location
+
+person = Person() # person variable declared for this class
+person.set_name('Christopher Brooks') # calling method in this class on this value
+person.set_location('Ann Arbor, MI, USA') #calling this method 
+print('{} live in {} and works in the department {}'.format(person.name, person.location, person.department))
 
 
 
